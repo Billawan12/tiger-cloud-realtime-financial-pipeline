@@ -1,4 +1,9 @@
---Create crypto_ticks table
+-- ============================================================
+-- Real-Time Financial Data Pipeline
+-- Database Schema
+-- ============================================================
+
+-- Create the TimescaleDB hypertable for real-time price ticks
 CREATE TABLE crypto_ticks (
     "time" TIMESTAMPTZ,
     symbol TEXT,
@@ -10,15 +15,9 @@ CREATE TABLE crypto_ticks (
     tsdb.orderby = 'time DESC'
 );
 
---Create crypto_assets table
+
+-- Create a reference table for supported crypto assets
 CREATE TABLE crypto_assets (
     symbol TEXT UNIQUE,
     "name" TEXT
 );
-
---Check the hypertable
-SELECT
-    hypertable_schema,
-    hypertable_name
-FROM timescaledb_information.hypertables
-WHERE hypertable_name = 'crypto_ticks';
